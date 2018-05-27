@@ -4,7 +4,16 @@ hapi-raven
 
 A Hapi plugin for sending exceptions to Sentry through Raven.
 
-**NOTE:** this is forked from [bendrucker/hapi-raven](https://github.com/bendrucker/hapi-raven), but has some breaking changes. It has additional dependencies, and `client` option has been changed to `config`.
+**NOTE:** this is forked from [bendrucker/hapi-raven](https://github.com/bendrucker/hapi-raven), but has some breaking changes, including:
+* It has additional dependencies (git-rev-parse, dotenv)
+* `client` option has been changed to `config`
+* `tags` should be passed as child object to `config`, not as separate option
+
+## To Do
+* change test suite:
+  - use mocha/chai, or lab/code
+  - stub via sinon (get rid of proxyquire please)
+
 
 ## Setup
 
