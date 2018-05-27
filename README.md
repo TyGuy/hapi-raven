@@ -1,15 +1,17 @@
-hapi-raven [![Build Status](https://travis-ci.org/bendrucker/hapi-raven.svg?branch=master)](https://travis-ci.org/bendrucker/hapi-raven)
+hapi-raven
+<!--[![Build Status](https://travis-ci.org/bendrucker/hapi-raven.svg?branch=master)](https://travis-ci.org/bendrucker/hapi-raven)-->
 ==========
 
-A Hapi plugin for sending exceptions to Sentry through Raven. 
+A Hapi plugin for sending exceptions to Sentry through Raven.
+
+**NOTE:** this is forked from [bendrucker/hapi-raven](https://github.com/bendrucker/hapi-raven), but has some breaking changes. It has additional dependencies, and `client` option has been changed to `config`.
 
 ## Setup
 
 Options:
 
 * **`dsn`**: Your Sentry DSN (required)
-* **`client`**: An options object that will be passed directly to the client as its second argument (optional)
-* **`tags`**: An array of tags (strings) to apply to each captured error
+* **`config`**: An options object that will be passed directly to the client as its second argument (optional)
 
 Note that DSN configuration using `process.env` is not supported. If you wish to replicate the [default environment variable behavior](https://github.com/getsentry/raven-node/blob/master/lib/client.js#L21), you'll need to supply the value directly:
 
@@ -24,9 +26,9 @@ server.register({
 
 ## Usage
 
-Once you register the plugin on a server, logging will happen automatically. 
+Once you register the plugin on a server, logging will happen automatically.
 
-The plugin listens for [`'request-error'` events](http://hapijs.com/api#server-events) which are emitted any time `reply` is called with an error where `err.isBoom === false`. Note that the `'request-error'` event is emitted for all thrown exceptions and passed errors that are not Boom errors. Transforming an error at an extension point (e.g. `'onPostHandler'` or `'onPreResponse'`) into a Boom error will not prevent the event from being emitted on response. 
+The plugin listens for [`'request-error'` events](http://hapijs.com/api#server-events) which are emitted any time `reply` is called with an error where `err.isBoom === false`. Note that the `'request-error'` event is emitted for all thrown exceptions and passed errors that are not Boom errors. Transforming an error at an extension point (e.g. `'onPostHandler'` or `'onPreResponse'`) into a Boom error will not prevent the event from being emitted on response.
 
 --------------
 

@@ -13,14 +13,15 @@ test('options', async function (t) {
     raven: {
       config (dsn, options) {
         t.equal(dsn, 'dsn')
-        t.deepEqual(options, { foo: 'bar' })
-      }
+        t.equal(options.foo, 'bar')
+      },
+      setContext() {}
     }
   })
 
   await register(server, plugin, {
     dsn: 'dsn',
-    client: { foo: 'bar' }
+    config: { foo: 'bar' }
   })
 })
 
@@ -43,7 +44,8 @@ test('request-error', async function (t) {
         t.ok(data.request.headers['user-agent'])
         t.deepEqual(data.request.cookies, {})
         t.equal(data.extra.remoteAddress, '127.0.0.1')
-      }
+      },
+      setContext() {}
     }
   })
 
@@ -61,7 +63,8 @@ test('boom error', async function (t) {
     raven: {
       config () {
       },
-      captureException: t.fail
+      captureException: t.fail,
+      setContext() {}
     }
   })
 
@@ -75,18 +78,21 @@ test('tags', async function (t) {
   t.plan(3)
 
   const server = Server()
+  let tags = {}
   const plugin = proxyquire('./', {
     raven: {
-      config () {
+      config (dsn, configOpts) {
+        tags = configOpts.tags
       },
       captureException (err, data) {
         t.ok(err)
-        t.deepEqual(data.tags, ['beep'])
-      }
+        t.deepEqual(tags, ['beep'])
+      },
+      setContext() {}
     }
   })
 
-  await register(server, plugin, { tags: ['beep'] })
+  await register(server, plugin, { config: { tags: ['beep'] } })
 
   const response = await server.inject('/')
   t.equal(response.statusCode, 500)

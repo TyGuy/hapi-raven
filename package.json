@@ -5,15 +5,17 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bendrucker/hapi-raven.git"
+    "url": "https://github.com/TyGuy/hapi-raven.git"
   },
   "scripts": {
-    "test": "standard",
-    "test-main": "blue-tape test.js",
+    "test": "NODE_ENV=test standard",
+    "test-main": "NODE_ENV=test blue-tape test.js",
     "coverage": "100 npm run test-main"
   },
   "dependencies": {
-    "raven": "^2.1.0"
+    "dotenv": "^5.0.1",
+    "git-rev-sync": "^1.9.1",
+    "raven": "^2.3.0"
   },
   "peerDependencies": {
     "hapi": ">=17 <18"
@@ -36,10 +38,10 @@
     "exception",
     "error"
   ],
-  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me/)",
+  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me/) -- also TyGuy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bendrucker/hapi-raven/issues"
+    "url": "https://github.com/TyGuy/hapi-raven/issues"
   },
-  "homepage": "https://github.com/bendrucker/hapi-raven"
+  "homepage": "https://github.com/TyGuy/hapi-raven"
 }
